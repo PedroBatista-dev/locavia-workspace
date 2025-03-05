@@ -1,0 +1,55 @@
+<app-body [loader]="setLoader">
+    <div class="card " style="width: 100%;font-size: 15px;">
+      <app-toolbar [title]="'Motivos do Pedido de Compra'"></app-toolbar>
+      <div class="card-header">
+        <div class="row">
+          <div class="col-6">
+            <h5>Listagem de Motivos Pedido de Compra de Ativo</h5>
+            <span class="available">{{ actionsAvailable }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <app-filter-search-items
+          [columnsFilter]="displayedColumnsFilter"
+          (filterChange)="watchFilterSearch($event)">
+          <ng-container *ngTemplateOutlet="actionFilterTemplate"></ng-container>
+          <ng-template #actionFilterTemplate>
+            <div class="float-right" *ngIf="activeActionNew">
+              <div>
+                <a mat-flat-button class="primary float-right" (click)="tableService.novoRegistro()">
+                  Novo
+                </a>
+              </div>
+            </div>
+          </ng-template>
+        </app-filter-search-items>
+        <div class="example-container  main-table">
+          <table mat-table [dataSource]="dataSource" (mouseleave)="tableService.closeAllRows($event)">
+            <!-- Name Column -->
+            <ng-container matColumnDef="Descricao">
+              <th mat-header-cell *matHeaderCellDef>Descrição</th>
+              <td mat-cell *matCellDef="let element" (dblclick)="consultarItem(element)"
+                (mouseover)="tableService.setActiveRow($event); gerarBotoes(element);">{{ element.Descricao }}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="Acoes">
+              <th mat-header-cell *matHeaderCellDef>Ações</th>
+              <td mat-cell *matCellDef="let element" (dblclick)="consultarItem(element)"
+                (mouseover)="tableService.setActiveRow($event); gerarBotoes(element);">
+  
+  
+                <app-menu-acoes (executaAcao)="executaAcoesMenu($event, element)" [items]="menuListItems">
+                </app-menu-acoes>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+        <mat-paginator showFirstLastButtons [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+          (page)="getServerData($event)">
+        </mat-paginator>
+      </div>
+    </div>
+</app-body>
