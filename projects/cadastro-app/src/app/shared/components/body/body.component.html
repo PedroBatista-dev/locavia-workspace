@@ -1,0 +1,10 @@
+<ng-container *ngIf="loader && currentWidth > 768">
+    <div class="info-loader">
+      <div class="loader-inner">
+        <!-- <img src="../../../../assets/images/ezgif.com-gif-maker (2).gif" alt="" srcset=""> -->
+        <img class="ld-bg" src="../../../../assets/images/black_wave.gif" alt="" srcset="" />
+      </div>
+    </div>
+  </ng-container>
+  
+  <ng-content class="ps" [class.tablet]="!deviceService.isDesktop()"></ng-content>

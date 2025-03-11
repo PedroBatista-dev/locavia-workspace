@@ -1,0 +1,140 @@
+<ng-container *ngIf="showErrors == true">
+    <div class="btn-container" #elementRef>
+        <div class="elements-container" [ngClass]="{'custom-button': customButton}">
+            <div class="form-controls" [ngClass]="{'custom-button': customButton}">
+                <button type="button" mat-stroked-button class="mr-2 secondary" (click)="onVoltarClick($event)">
+                    Voltar
+                </button>
+    
+                <div class="button-tooltip">
+                    <button mat-flat-button color="primary" id="submitBtn" [class.spinner]="showLoader"
+                        (click)="onSaveClick()" class="mr-2 save-btn save-erros" type="submit" *ngIf="condicoesSalvar"
+                        [disabled]="disabledSalvar">
+                        Salvar
+                    </button>
+    
+                    <button mat-flat-button color="primary" class="mr-2 save-btn save-erros" type="button"
+                        (click)="onEditarClick($event)" *ngIf="condicoesEditar">
+                        Editar
+                    </button>
+    
+                    <mat-icon *ngIf="form.invalid || form.pending" (click)="toggleTooltipVisibility()"
+                        style="cursor: pointer; animation: fadeIn .3s ease; color: #878787; margin-right: 7px">info</mat-icon>
+                </div>
+
+                <div class="custom-buttons" *ngIf="getCondicionToShowCustomButton()" (mouseover)="showInfo()" (mouseleave)="hiddenInfo()">
+                    <ng-container *ngIf="customButton.type == 'primary' || !customButton.type || customButton.type.length == 0">
+                        <button type="button" color="primary" mat-flat-button
+                            class="{{customButton.class ? customButton.class : 'mr-2'}}" (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
+                            {{customButton.name}}
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="customButton.type == 'secondary'">
+                        <button type="button" mat-stroked-button
+                            class="{{customButton.class ? customButton.class : 'mr-2 secondary'}}"
+                            (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
+                            {{customButton.name}} 
+                        </button>
+                    </ng-container>
+
+                    <app-show-info class="info-custom" *ngIf="showInfoCustom && customButton.disabled" [arrayInfo]="customButton.info"></app-show-info>
+                </div>
+
+                
+                <div class="otherOptions" *ngIf="otherOptions">
+                    <button type="button" mat-flat-button class="mr-2 buttonOtherOptions"
+                        [matMenuTriggerFor]="menu">
+                        <mat-icon inline="true" class="filter-button"
+                        >expand_less</mat-icon> Outras ações
+                    </button>
+    
+                    <mat-menu #menu="matMenu" class="filter-menu" xPosition="after" yPosition="above">
+                        <ng-container *ngFor="let option of otherOptions">
+                            <button class="option" (click)="otherOptionClick(option)" [disabled]="option.disabled" *ngIf="!option.hide">
+                                <mat-icon [svgIcon]="option.icon"  *ngIf="option.iconType === 'svg'" [style.color]="option.color">{{option.icon}}</mat-icon>
+                                <mat-icon *ngIf="!option.iconType" [style.color]="option.color">{{option.icon}}</mat-icon>
+                                <span class="option-title">{{option.name}}</span>
+                            </button>
+                        </ng-container>
+                      </mat-menu>
+                </div>
+            </div>
+    
+            <div class="tooltip-personalizado">
+                <ng-container *ngIf="forms; else elseBlock">
+                  <app-list-error-form *ngIf="isTooltipVisible" [forms]="forms"
+                  [controlLabels]="controlLabels"></app-list-error-form>
+                </ng-container>
+                <ng-template #elseBlock>
+                  <app-list-error-form *ngIf="isTooltipVisible" [form]="form" [controlLabels]="controlLabels"></app-list-error-form>
+                </ng-template>
+              </div>
+
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showErrors == false">
+    <div class="btn-container">
+        <div class="form-controls" [ngClass]="{'custom-button': customButton}">
+            <button type="button" mat-stroked-button class="mr-2 secondary" (click)="onVoltarClick($event)">
+                Voltar
+            </button>
+    
+            <button mat-flat-button color="primary" id="submitBtn"  (click)="onSaveClick()" class="mr-2 save-btn" type="submit" *ngIf="condicoesSalvar"
+                [disabled]="disabledSalvar">
+                    Salvar
+            </button>
+            <button mat-flat-button color="primary" class="mr-2 save-btn" type="button" (click)="onEditarClick($event)"
+                *ngIf="condicoesEditar">
+                Editar
+            </button>
+
+            <div class="custom-buttons" *ngIf="getCondicionToShowCustomButton()" (mouseover)="showInfo()" (mouseleave)="hiddenInfo()">
+                <ng-container *ngIf="customButton.type == 'primary' || !customButton.type || customButton.type.length == 0">
+                    <button type="button" color="primary" mat-flat-button
+                        class="{{customButton.class ? customButton.class : 'mr-2'}}" (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
+                        {{customButton.name}}
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="customButton.type == 'secondary'">
+                    <button type="button" mat-stroked-button
+                        class="{{customButton.class ? customButton.class : 'mr-2 secondary'}}"
+                        (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
+                        {{customButton.name}} 
+                    </button>
+                </ng-container>
+
+                <app-show-info class="info-custom" *ngIf="showInfoCustom && customButton.disabled" [arrayInfo]="customButton.info"></app-show-info>
+            </div>
+            
+            <div class="otherOptions" *ngIf="otherOptions">
+                <button type="button" mat-flat-button class="mr-2 buttonOtherOptions"
+                    [matMenuTriggerFor]="menu">
+                    <mat-icon inline="true" class="filter-button"
+                    >expand_less</mat-icon> Outras ações
+                </button>
+
+                <mat-menu #menu="matMenu" class="filter-menu" xPosition="after" yPosition="above">
+                    <ng-container *ngFor="let option of otherOptions">
+                        <button class="option" (click)="otherOptionClick(option)" [disabled]="option.disabled" *ngIf="!option.hide">
+                            <mat-icon [svgIcon]="option.icon"  *ngIf="option.iconType === 'svg'" [style.color]="option.color">{{option.icon}}</mat-icon>
+                            <mat-icon *ngIf="!option.iconType" [style.color]="option.color">{{option.icon}}</mat-icon>
+                            <span class="option-title">{{option.name}}</span>
+                        </button>
+                    </ng-container>
+                  </mat-menu>
+            </div>
+
+            <ng-container>
+                <ng-content></ng-content>
+            </ng-container>
+        </div>
+    
+        <div class="form-navigation">
+    
+        </div>
+    
+    
+    </div>
+</ng-container>

@@ -1,0 +1,200 @@
+.btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  
+    .elements-container:not(.custom-button) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+  
+      @media (max-width: 766px) {
+        gap: 0px;
+  
+        .tooltip-personalizado {
+          margin-top: -18px;
+        }
+      }
+    }
+  
+    .elements-container.custom-button {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+  
+      @media (max-width: 880px) {
+        gap: 0px;
+  
+        .tooltip-personalizado {
+          margin-top: -18px;
+  
+          @media (max-width: 600px) {
+            margin-top: 20px;
+          }
+        }
+      }
+    }
+  }
+  
+  .custom-buttons {
+    display: flex;
+    align-items: center;
+    position: relative;
+  
+    .info-custom {
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      z-index: 1000;
+    }
+  }
+  
+  .buttonOtherOptions {
+    &:hover {
+      background-color: #eee;
+    }
+  }
+  
+  .option {
+    display: flex;
+    align-items: center;
+    padding: 7px 10px;
+    gap: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border: inherit;
+    width: 100%;
+    background-color: #fff;
+  
+    .mat-icon {
+      transform: scale(0.9);
+    }
+  
+    &:hover {
+      background-color: #eee;
+    }
+  
+    & ~ .option {
+      border-top: 1px solid #dbdbdb;
+    }
+  }
+  
+  .form-controls {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    .button-tooltip {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+  
+    @media (max-width: 768px) {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      grid-gap: 10px;
+  
+      button {
+        width: 100%;
+        &:nth-child(1) {
+          background-color: #fff;
+          border-color: #fff !important;
+        }
+        &:nth-child(2) {
+          background-color: #f1840e;
+          color: #fff;
+        }
+        &:disabled {
+          background-color: rgba(0, 0, 0, 0.12);
+          color: rgba(0, 0, 0, 0.26);
+        }
+      }
+    }
+  
+    .tooltip-personalizado {
+      max-width: 500px;
+    }
+  }
+  
+  .tab-navigation {
+    margin-left: 10px;
+  
+    button {
+      text-align: center;
+      border: none !important;
+      outline: none !important;
+      background-color: transparent;
+      color: #8c8e8f;
+      padding-top: 6px;
+      mat-icon {
+        font-size: 18px;
+      }
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .form-navigation {
+    margin-right: 20px;
+    display: flex;
+    .navigation {
+      height: 40px;
+      width: 40px;
+      padding-top: 7px;
+      margin-top: -2px;
+      border-radius: 50%;
+      text-align: center;
+      border: none;
+      outline: none !important;
+      color: #555;
+  
+      mat-icon {
+        outline: none !important;
+      }
+      &:disabled {
+        color: #d3d3d3 !important;
+      }
+      &:hover {
+        background-color: #d3d3d39e;
+      }
+      &:hover:disabled {
+        background-color: transparent;
+      }
+    }
+  }
+  
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spinner:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff00;
+    border-top-color: #000000;
+    animation: spinner 0.6s linear infinite;
+  }

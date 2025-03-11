@@ -1,0 +1,32 @@
+<div class="menu">
+    <a *ngIf="editRouterLink && editRouterLink != '' && editVisible" mat-icon-button color="accent"
+        aria-label="Icone de editar" routerLink={{editRouterLink}}>
+        <mat-icon inline=true matTooltip="Editar">edit</mat-icon>
+    </a>
+    <button type="button" *ngIf="consultVisible && consultEvent.observers.length > 0" mat-icon-button color="accent"
+        aria-label="Icone de consultar" (click)="consult()">
+        <mat-icon inline=true matTooltip="Consultar">visibility</mat-icon>
+    </button>
+    <button *ngIf="editVisible && editEvent.observers.length > 0" mat-icon-button color="warn"
+        aria-label="Icone de editar" (click)="edit()" type="button">
+        <mat-icon inline=true matTooltip="Editar">edit</mat-icon>
+    </button>
+    <button *ngIf="deleteVisible && deleteEvent.observers.length > 0" mat-icon-button color="warn"
+        aria-label="Icone de excluir" (click)="delete()" type="button">
+        <mat-icon inline=true matTooltip="Deletar">delete</mat-icon>
+    </button>
+
+    <ng-container *ngFor="let item of items">
+        <ng-container *ngIf=!item.isDisabled>
+            <button class="ng-star-inserted" mat-icon-button color="{{item.style}}" type="button"
+                (click)=genericMethod(item.menuLinkText)>
+                <mat-icon [svgIcon]="item.menuIcon" *ngIf="item.iconType === 'svg'" matTooltip="{{item.menuLinkText}}">
+                    {{ item.menuIcon }}
+                </mat-icon>
+                <mat-icon *ngIf="!item.iconType" matTooltip="{{item.menuLinkText}}"> {{ item.menuIcon }} </mat-icon>
+            </button>
+        </ng-container>
+    </ng-container>
+</div>
+
+<ng-content></ng-content>

@@ -1,0 +1,25 @@
+<div class="container">
+    <span>São necessários os seguintes itens:</span>
+    <div class="rule-container">
+      <ng-container *ngFor="let info of arrayInfo; let i = index">
+        <div class="rule" *ngIf="isArray(info[1])">
+          <div class="fields-container" style="display: flex; flex-direction: column; gap: 5px">
+            <div class="title">
+              <b>{{ info[0] }}:</b>
+            </div>
+            <div 
+              class="text" 
+              [innerHTML]="getValueFromArray(info[1])"
+              [class.ul-rules]="true"
+            ></div>
+          </div>
+        </div>
+  
+        <div class="rule" *ngIf="!isArray(info[1])">
+          <div class="field">
+            <b>{{ info[0] }}</b>: {{ info[1] }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>

@@ -1,0 +1,52 @@
+<div class="row filter-section">
+    <div class="col-sm-12 filter-inner">
+      <div class="custom-filter">
+        <input
+          placeholder="Pesquisar por {{ filterParam[0] }}"
+          (focusout)="tableService.hideFilterLabel()"
+          (keyup)="tableService.showFilterLabel()"
+          (keyup.enter)="searchEnter()"
+          [formControl]="search"
+          #input
+        />
+        <button
+          matTooltip="Filtro"
+          (click)="tableService.showFilterLabel()"
+          [ngClass]="{ active: tableService.isFilterButtonActive }"
+          [matMenuTriggerFor]="menu"
+        >
+          <mat-icon inline="true" class="filter-button mr-1">filter_list</mat-icon
+          ><span *ngIf="currentWidth > 768" class="filter-name">{{ filterParam[0] }}</span>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before" class="filter-menu">
+          <div class="menu-com-tipo-pesquisa">
+            <div class="menu-div">
+              <p class="menu-title">Tipo de Pesquisa</p>
+              <mat-radio-group
+                aria-label="Tipo de Pesquisa"
+                class="mat-tipo-pesquisa"
+                (change)="changeTipoPesquisa($event)"
+                [formControl]="searchTypeControl"
+              >
+                <mat-radio-button value="C">Contém</mat-radio-button>
+                <mat-radio-button value="I">Início</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="menu-div">
+              <p class="menu-title">Pesquisar por</p>
+              <span
+                [ngClass]="filterParam[0] === column[0] ? 'selected-item' : 'filter-item'"
+                *ngFor="let column of columnsFilter"
+                (click)="setParamFilter(column)"
+              >
+                {{ column[0] }}
+              </span>
+            </div>
+          </div>
+        </mat-menu>
+      </div>
+      <ng-container>
+        <ng-content></ng-content>
+      </ng-container>
+    </div>
+  </div>
