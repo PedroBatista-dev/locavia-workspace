@@ -16,12 +16,15 @@ import { ComprasVeiculosMotivosPedidoRoutingModule } from './compras-ativos-moti
 import { CompraVeiculoMotivoPedidoResolve } from './shared/compraVeiculoMotivoPedido.resolve';
 import { ListagemComprasAtivosMotivosPedidoComponent } from './listagem-compras-ativos-motivos-pedido/listagem-compras-ativos-motivos-pedido.component';
 import { FormularioComprasAtivosMotivosPedidoComponent } from './formulario-compras-ativos-motivos-pedido/formulario-compras-ativos-motivos-pedido.component';
+import { SharedModule } from '../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ListagemComprasAtivosMotivosPedidoComponent, FormularioComprasAtivosMotivosPedidoComponent],
   imports: [
     CommonModule,
     ComprasVeiculosMotivosPedidoRoutingModule,
+    SharedModule,
     MatTabsModule,
     MatInputModule,
     MatSelectModule,
@@ -34,6 +37,7 @@ import { FormularioComprasAtivosMotivosPedidoComponent } from './formulario-comp
     MatButtonModule,
     MatTooltipModule,
     MatListModule,
+    ReactiveFormsModule
   ],
   providers: [CompraVeiculoMotivoPedidoResolve]
 })

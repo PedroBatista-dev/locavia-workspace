@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 import { CompraVeiculoMotivoPedido } from '../shared/compraVeiculoMotivoPedido.model';
 import { CompraVeiculoMotivoPedidoService } from '../shared/compraVeiculoMotivoPedido.service';
 //import { VeiculoRestricaoService } from 'src/app/cadastro/veiculos-restricoes/shared/veiculoRestricao.service';
-import { BaseResourceFormComponent } from '../../shared/components/base-resource-form/base-resource-form.component';
+import { BaseResourceFormComponent } from '../../../shared/components/base-resource-form/base-resource-form.component';
 
 @Component({
   selector: 'app-formulario-compras-ativos-motivos-pedido',

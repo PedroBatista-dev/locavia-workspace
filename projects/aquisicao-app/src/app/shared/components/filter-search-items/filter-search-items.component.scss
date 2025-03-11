@@ -1,0 +1,53 @@
+.menu-com-tipo-pesquisa {
+    display: flex;
+  }
+  
+  .mat-tipo-pesquisa {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu-title {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: x-small;
+  }
+  
+  .menu-div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+  }
+  
+  .selected-item {
+    padding: 0px 10px;
+    font-size: small;
+    display: block;
+    color: inherit;
+    background-color: #e8e8e8;
+    width: 100%;
+    line-height: 30px;
+    height: 30px;
+    cursor: pointer;
+    outline: none !important;  
+    white-space: nowrap;
+  
+    span {
+      width: 100%;
+      line-height: 30px;
+      height: 30px;
+    }
+  }
+  
+  .filter-item {
+    white-space: nowrap;
+  }
+  
+  ::ng-deep.mat-menu-panel {
+    max-width: 400px;
+  }
+  
+  .row.filter-section {
+    @media (max-width: 768px) {
+      padding: 0 10px;
+    }
+  }

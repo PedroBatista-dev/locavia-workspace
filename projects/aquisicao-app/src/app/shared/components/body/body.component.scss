@@ -1,0 +1,47 @@
+.info-loader {
+    height: calc(100vh - 400px);
+    width: calc(100% - 100px);
+    position: fixed;
+    top: 250px;
+    z-index: 10 !important;
+    background-color: #f7f7f7;
+    left: 100px;
+  }
+  
+  .loader-inner {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    vertical-align: middle;
+  
+    img {
+      transform: scale(0.8);
+      opacity: 0.2;
+      @media (max-width: 768) {
+        transform: scale(0.4);
+      }
+    }
+  }
+  
+  .ld-bg {
+    mask-image: url("../../../../assets/images/1.png");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+  }
+  
+  .move-loader.info-loader {
+    height: calc(100vh - 400px);
+    width: calc(100% - 100px) !important;
+    position: fixed;
+    top: 250px;
+    z-index: 10 !important;
+    background-color: #f7f7f7;
+    left: 100px !important;
+  }
+  
+  ::ng-deep.tablet {
+    overflow-y: auto;
+  }

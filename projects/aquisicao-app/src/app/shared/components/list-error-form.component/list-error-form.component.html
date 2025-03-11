@@ -1,0 +1,26 @@
+<ng-container *ngIf="typeForm === 'unique'">
+    <div class="container">
+      <span>Para salvar é necessário preencher:</span>
+      <ul class="unique">
+        <li *ngFor="let control of controlsErros" (mouseenter)="setError(control.control)" (mouseleave)="resetError(control.control)">
+          {{control.label}}
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="typeForm === 'array'">
+  <div class="container">
+    <span class="title">Para salvar é necessário preencher:</span>
+    <ng-container *ngFor="let item of controlsErros">
+      <ng-container *ngIf="item.controls.length > 0">
+        <ul class="array">
+          <span class="title-item">{{item.title}}:</span>
+          <li *ngFor="let control of item.controls" (mouseenter)="setError(control.control)" (mouseleave)="resetError(control.control)">
+            {{control.label}}
+          </li>
+        </ul>
+      </ng-container>
+    </ng-container>
+  </div>
+  </ng-container>

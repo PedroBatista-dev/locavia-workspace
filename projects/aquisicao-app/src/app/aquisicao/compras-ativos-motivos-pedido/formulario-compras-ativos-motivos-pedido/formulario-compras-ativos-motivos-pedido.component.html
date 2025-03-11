@@ -1,14 +1,6 @@
 <app-body [loader]="setLoader">
     <div class="card f-card" style="width: 100%;font-size: 15px;">
-        <app-toolbar [title]="'Motivos Pedido de Compra de Ativo'">
-        </app-toolbar>
-        <app-header-form (nextClick)="navigateNext()"  (previousClick)="navigatePrevious()" [dataLog]="buildLog()"
-            (setaClick)="confirmationCancel($event, '/aquisicao/compras-ativos-motivos-pedido/lista')"
-            title="Motivos Pedido de Compra de Ativo" [identifier]="resourceForm.controls['Descricao'].value"
-            [ncNext]="ncNext"            [ncPrevious]="ncPrevious" [formStatus]="pageTitle"></app-header-form>
-
         <div class="card-body form-card">
-
             <form [formGroup]="resourceForm" (submit)="submitForm()">
                 <mat-tab-group #tab >
                     <mat-tab label="Principal">

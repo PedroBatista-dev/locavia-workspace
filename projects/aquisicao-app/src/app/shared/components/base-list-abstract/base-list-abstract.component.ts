@@ -13,6 +13,7 @@ import { FilterDataModel } from "../../models/filter-data.model";
 import { TableService } from "../../service/table.service";
 import { customSwal } from "../../styles/sweetalert";
 import { MatMenuListItem } from "../menu-acoes/menu-acoes.component";
+import { FormPropertiesService } from "../../service/form-properties.service";
 
 @Directive()
 export abstract class BaseListAbstract<T extends BaseResourceModel> implements OnInit, OnDestroy, AfterContentChecked {
@@ -63,6 +64,8 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
   activeActionNew: boolean = false;
   userLogged: any; //Variavel por capturar o usuario logado e seus dados
 
+  private formPropertiesService!: FormPropertiesService;
+
   constructor(
     protected injector: Injector,
     public resource: T,
@@ -70,6 +73,16 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
     protected jsonDataToResourceFn: (jsonData: any) => T
   ) {
     this.router = this.injector.get(Router);
+
+    this.formPropertiesService = this.injector.get(FormPropertiesService);
+    // captura todas as informacoes do formulario de acordo com o usuario logado
+    this.formPropertiesService.setFormID(this.router.url);
+    // busca as acoes disponiveis no formulario
+    this.actionsAvailable = this.formPropertiesService.getActionsAvailableForm();
+    // busca as acoes que estao disponiveis no formulario
+    this.formPropertiesService.mountActionsMenu(this.menuListItems);
+    // verifica se acao de inserir deve ficar habilitada
+    this.activeActionNew = this.formPropertiesService.activeAction("Inserir");
   }
 
   // caso a aba esteja inativa e o usuario retorne para mesma o sistema atualiza os dados
@@ -88,10 +101,6 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
   }
 
   ngAfterContentChecked(): void {}
-
-  ngAfterContentInit() {
-    this.loadAndSetPaginatorPreferences(); // seta as preferências de paginação do usuário
-  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -120,11 +129,26 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
     }
   }
 
+  protected executaAcoesMenu(action: any, element: any) {
+    switch (action) {
+      case "Editar":
+        this.router.navigateByUrl(this.formPropertiesService.form.path + "/" + element[this.key] + "/editar");
+        break;
+      case "Consultar":
+        this.router.navigateByUrl(this.formPropertiesService.form.path + "/" + element[this.key] + "/consultar");
+        break;
+      case "Deletar":
+        this.delete(element, [this.key] + "=" + element[this.key]);
+        break;
+      default:
+        break;
+    }
+  }
+
   getServerData(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
     this.buscarDados(event.pageIndex, event.pageSize);
-    this.savePaginatorPreferences(); // Salva as preferências do paginator no localStorage
   }
 
   applyFilter() {
@@ -173,26 +197,6 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
   }
 
   protected afterNewSearch() {}
-
-  gotToURL(url: any) {
-    this.resources.data!.items!.forEach((item) => {
-      this.listNavigation.push(item[this.key]);
-    });
-    localStorage.setItem("nav_ctrl", JSON.stringify(this.listNavigation));
-    this.router.navigateByUrl(url);
-  }
-
-  consultar(url: any) {
-    this.resources.data!.items!.forEach((item) => {
-      this.listNavigation.push(item[this.key]);
-    });
-    localStorage.setItem("nav_ctrl", JSON.stringify(this.listNavigation));
-    this.router.navigateByUrl(url);
-  }
-
-  getRouterBase() {
-    return this.router;
-  }
 
   async delete(resource: T, query: string) {
     return customSwal
@@ -284,72 +288,4 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
     });
   }
 
-  savePaginatorPreferences(): void {
-    const componentRouteName = this.router.url.split("/")[2];
-
-    if (componentRouteName) {
-      // Verificar se já existe um objeto com o mesmo componentName no userPaginatorPreferences
-      const existingPreference = this.userPaginatorPreferences.find(
-        (preference) => preference.componentName === componentRouteName
-      );
-
-      if (existingPreference) {
-        // Atualizar o valor do pageSize se já existir
-        existingPreference.pageSize = this.pageSize;
-      } else {
-        // Se não existir, adicionar um novo objeto ao userPaginatorPreferences
-        const preferencesObject = {
-          componentName: componentRouteName,
-          pageSize: this.pageSize,
-        };
-        this.userPaginatorPreferences.push(preferencesObject);
-      }
-
-      // Armazenar/Atualizar userPaginatorPreferences no localStorage
-      localStorage.setItem("userPaginatorPreferences", JSON.stringify(this.userPaginatorPreferences));
-    }
-  }
-
-  loadAndSetPaginatorPreferences(): void {
-    // Recuperar userPaginatorPreferences do localStorage durante o ngOnInit
-    const storedPreferences = localStorage.getItem("userPaginatorPreferences");
-    this.userPaginatorPreferences = storedPreferences ? JSON.parse(storedPreferences) : [];
-    const componentRouteName = this.router.url.split("/")[2];
-
-    // Verificar se já existe um objeto com o mesmo componentName no userPaginatorPreferences
-    const existingPreference = this.userPaginatorPreferences.find(
-      (preference) => preference.componentName === componentRouteName
-    );
-
-    if (existingPreference) {
-      // Aplicar os valores do preferencesArray à paginação
-      this.pageSize = existingPreference.pageSize;
-    } else {
-      this.pageSize = 5;
-    }
-  }
-
-  get grupoUsuario(): string {
-    if (this.userLogged) {
-      if (this.userLogged.AcessoSimultaneoEmpresas == "S") {
-        return this.userLogged.CodigoGrupoUsuarioAcessoSimultaneoEmpresa;
-      } else {
-        const empresaDefault = this.userLogged.Empresas.find((empresa: any) => empresa.EmpresaDefault === "S");
-        return empresaDefault.CodigoGrupoUsuario;
-      }
-    }
-    return '';
-  }
-
-  formatDisplayedColumns(displayedColumns: string[], currentWidth: number): string[] {
-    if (currentWidth > 768 && displayedColumns[0] == "radio") {
-      displayedColumns.shift();
-      displayedColumns.push("Acoes");
-    } else if (currentWidth <= 768 && displayedColumns[0] != "radio") {
-      displayedColumns.unshift("radio");
-      displayedColumns.pop();
-    }
-
-    return displayedColumns;
-  }
 }
