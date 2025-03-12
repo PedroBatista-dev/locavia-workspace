@@ -2,8 +2,8 @@ import { Component, Injector } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { CompraVeiculoMotivoPedido } from '../shared/compraVeiculoMotivoPedido.model';
 import { CompraVeiculoMotivoPedidoService } from '../shared/compraVeiculoMotivoPedido.service';
-//import { VeiculoRestricaoService } from 'src/app/cadastro/veiculos-restricoes/shared/veiculoRestricao.service';
 import { BaseResourceFormComponent } from '../../../shared/components/base-resource-form/base-resource-form.component';
+import { VeiculoRestricaoService } from 'projects/cadastro-app/src/app/cadastro/veiculos-restricoes/shared/veiculoRestricao.service';
 
 @Component({
   selector: 'app-formulario-compras-ativos-motivos-pedido',
@@ -17,7 +17,7 @@ export class FormularioComprasAtivosMotivosPedidoComponent extends BaseResourceF
   constructor(
     protected compraVeiculoMotivoPedidoService: CompraVeiculoMotivoPedidoService,
     protected override injector: Injector,
-    //public veiculoRestricaoService: VeiculoRestricaoService,
+    public veiculoRestricaoService: VeiculoRestricaoService,
   ) {
     super(
       injector,
