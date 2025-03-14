@@ -1,0 +1,85 @@
+{
+    "motivosPedido": [
+      {
+        "CodigoMotivoPedido": "1",
+        "Descricao": "Compra de Veículo Novo",
+        "StatusMotivoPedido": "A",
+        "CodigoRestricao": "1",
+        "Estoque": "S",
+        "RenovacaoFrota": "S"
+      },
+      {
+        "CodigoMotivoPedido": "2",
+        "Descricao": "Troca de Veículo",
+        "StatusMotivoPedido": "A",
+        "CodigoRestricao": "2",
+        "Estoque": "S",
+        "RenovacaoFrota": "N"
+      },
+      {
+        "CodigoMotivoPedido": "3",
+        "Descricao": "Aquisição para Aluguel",
+        "StatusMotivoPedido": "A",
+        "CodigoRestricao": "3",
+        "Estoque": "S",
+        "RenovacaoFrota": "N"
+      },
+      {
+        "CodigoMotivoPedido": "4",
+        "Descricao": "Substituição de Veículo Danificado",
+        "StatusMotivoPedido": "A",
+        "CodigoRestricao": "4",
+        "Estoque": "S",
+        "RenovacaoFrota": "N"
+      },
+      {
+        "CodigoMotivoPedido": "5",
+        "Descricao": "Renovação de Frota Antiga",
+        "StatusMotivoPedido": "A",
+        "CodigoRestricao": "5",
+        "Estoque": "S",
+        "RenovacaoFrota": "S"
+      },
+      {
+        "CodigoMotivoPedido": "6",
+        "Descricao": "Compra para Uso Pessoal",
+        "StatusMotivoPedido": "I",
+        "CodigoRestricao": "6",
+        "Estoque": "N",
+        "RenovacaoFrota": "N"
+      },
+      {
+        "CodigoMotivoPedido": "7",
+        "Descricao": "Compra por Incentivo Fiscal",
+        "StatusMotivoPedido": "A",
+        "CodigoRestricao": "7",
+        "Estoque": "S",
+        "RenovacaoFrota": "Não"
+      },
+      {
+        "CodigoMotivoPedido": "8",
+        "Descricao": "Aquisição para Frota Corporativa",
+        "StatusMotivoPedido": "A",
+        "CodigoRestricao": "8",
+        "Estoque": "N",
+        "RenovacaoFrota": "S"
+      },
+      {
+        "CodigoMotivoPedido": "9",
+        "Descricao": "Recebimento de Veículo em Doação",
+        "StatusMotivoPedido": "A",
+        "CodigoRestricao": "9",
+        "Estoque": "S",
+        "RenovacaoFrota": "N"
+      },
+      {
+        "CodigoMotivoPedido": "10",
+        "Descricao": "Aquisição para Carro de Serviço",
+        "StatusMotivoPedido": "Ativo",
+        "CodigoRestricao": "R010",
+        "Estoque": "S",
+        "RenovacaoFrota": "S"
+      }
+    ]
+  }
+  

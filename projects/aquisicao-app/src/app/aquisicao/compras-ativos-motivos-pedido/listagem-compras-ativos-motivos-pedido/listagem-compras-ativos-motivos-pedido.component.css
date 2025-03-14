@@ -1,0 +1,49 @@
+.button-novo {
+    background-color: #ffd048 !important;
+    color: black;
+    font-size: 12px;
+    width: 117px;
+    border-radius: 20px !important;
+    line-height: 30px !important;
+    font-weight: bold;
+    &.excel {
+      width: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        transition: color 0.3s ease-in-out;
+        background-color: #ffc620 !important;
+      }
+    }
+  }
+
+  .main-table {
+    max-height: calc(100vh - 370px);
+    overflow-y: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    td:not(.mat-column-Acoes),
+    th:not(.mat-column-Acoes) {
+      padding: 0px 10px 0 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+  
+  .main-table {
+    overflow-y: auto;
+  }
+  
+  .main-table .checkbox-padding {
+    padding-top: 8px !important;
+    padding-left: 15px !important;
+  }
+  
+  .main-table table th,
+  .main-table table td {
+    padding: 0 10px !important;
+    white-space: nowrap;
+    text-align: center !important;
+  }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { CadastroRoutingModule } from './cadastro-routing.module';
 
 
@@ -9,8 +8,7 @@ import { CadastroRoutingModule } from './cadastro-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    CadastroRoutingModule,
-    BrowserModule
+    CadastroRoutingModule
   ]
 })
 export class CadastroModule { }

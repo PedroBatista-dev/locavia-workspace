@@ -75,12 +75,8 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
     this.router = this.injector.get(Router);
 
     this.formPropertiesService = this.injector.get(FormPropertiesService);
-    // captura todas as informacoes do formulario de acordo com o usuario logado
-    this.formPropertiesService.setFormID(this.router.url);
     // busca as acoes disponiveis no formulario
     this.actionsAvailable = this.formPropertiesService.getActionsAvailableForm();
-    // busca as acoes que estao disponiveis no formulario
-    this.formPropertiesService.mountActionsMenu(this.menuListItems);
     // verifica se acao de inserir deve ficar habilitada
     this.activeActionNew = this.formPropertiesService.activeAction("Inserir");
   }

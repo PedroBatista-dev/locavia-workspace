@@ -9,6 +9,7 @@ const routes: Routes = [
   {
     path: "",
     redirectTo: "lista",
+    pathMatch: 'full'
   },
   {
     path: "lista",

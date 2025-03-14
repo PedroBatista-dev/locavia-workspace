@@ -118,8 +118,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
     this.formBuilder = this.injector.get(FormBuilder);
     this.tableService = injector.get(TableService);
     this.formPropertiesService = this.injector.get(FormPropertiesService);
-    // captura as informacoes do formulario de acordo com as permissoes do usuario
-    this.formPropertiesService.setFormID(this.router.url);
   }
 
   ngOnInit() {

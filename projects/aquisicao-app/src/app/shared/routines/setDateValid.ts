@@ -4,7 +4,7 @@ import * as moment from "moment";
 export function setDateValid(resource: { [key: string]: any }) {
     Object.keys(resource).forEach((key) => {
         if (Array.isArray(resource[key])) {
-            resource[key].forEach((element) => {
+            resource[key].forEach((element: any) => {
                 setDateValid(element);
             });
         }

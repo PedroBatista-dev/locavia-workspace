@@ -86,24 +86,9 @@ export class FilterSearchItemsComponent {
     this.query = "";
 
     if (val != "") {
-      const filters = this.filterInit ? `&${this.filterInit}` : "";
-      const orderBy = this.orderByInit ? `&${this.orderByInit}` : `&orderBy=${this.filterParam[1]}=ASC`;
-      const flag = this.filterParam[2];
-      if (flag && ["object"].includes(typeof flag)) {
-        let result = null;
-        if (this.searchTypeControl.value === "I") {
-          result = Object.keys(flag).filter((key: any) => flag[key].toLowerCase().startsWith(val.toLowerCase()));
-        } else if (this.searchTypeControl.value == "C") {
-          result = Object.keys(flag).filter((key: any) => flag[key].toLowerCase().includes(val.toLowerCase()));
-        }
-        val = `IN('${result!.join("','")}')`;
-      }
-      this.query = `search=${this.filterParam[1]}=${val};TipoPesquisa=${this.searchTypeControl.value}${filters}${orderBy}`;
+      this.query = `${this.filterParam[1]}=${val}`;
     } else {
       this.query = this.filterInit;
-      if (this.orderByInit) {
-        this.query = `${this.filterInit};&${this.orderByInit}`;
-      }
     }
   }
 

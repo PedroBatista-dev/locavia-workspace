@@ -36,7 +36,7 @@
         </mat-select>
         <mat-error *ngIf="!disabled" [errorValidators]="control" aria-describedby=""></mat-error>
       </mat-form-field>
-      <a *ngIf="formLink != '' && !readonly && !disabled && control.enabled" [disabled]="control.disabled"
+      <a *ngIf="formLink != '' && !readonly && !disabled && control.enabled"
         title=" Abre uma nova guia contendo o formulário correspondente ao item selecionado para inserção de novos valores"
         class="link_formulario_cadastro" (click)="openLink()">...</a>
     </div>

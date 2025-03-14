@@ -62,22 +62,24 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
     page: number,
     limit: number | "*",
     query: string = "",
-    columns?: Array<string>,
     custom_url?: string
-  ): Observable<Paginate<T>> {
+  ): Observable<any[]> {
     let url = "";
 
     if (custom_url) {
-      url = `${this.apiPath}${custom_url}?page=${page}&limit=${limit}&${query}`;
+      url = `${this.apiPath}${custom_url}?_page=${page}&_limit=${limit}&${query}`;
     } else {
-      url = `${this.apiPath}?page=${page}&limit=${limit}&${query}`;
+      url = `${this.apiPath}?_page=${page}&_limit=${limit}&${query}`;
     }
 
     return this.http
-      .get(url, {
-        headers: new HttpHeaders().append("columns", columns ?? []),
-      })
-      .pipe(map((data: any) => this.jsonDataToResourcesPaginate(data)), catchError(this.handleError));
+      .get(url, { observe: 'response' })
+      .pipe(map((data: any) => {
+        const totalItens = data.headers.get('X-Total-Count');
+        const dados = data.body;
+
+        return { totalItens, dados };
+      }), catchError(this.handleError));
   }
 
   create(resource: T, custom_url?: string): Observable<T> {

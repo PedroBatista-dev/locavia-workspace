@@ -16,7 +16,7 @@ export class ListagemComprasAtivosMotivosPedidoComponent extends BaseListAbstrac
     "Acoes",
   ];
   override displayedColumnsFilter: any[] = [
-    ["Descricao", "ComprasVeiculosMotivosPedido.Descricao"],
+    ["Descricao", "Descricao_like"],
   ];
 
   override key: string = "CodigoMotivoPedido";

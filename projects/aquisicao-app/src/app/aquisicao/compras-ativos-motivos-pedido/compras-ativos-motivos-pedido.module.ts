@@ -18,6 +18,7 @@ import { ListagemComprasAtivosMotivosPedidoComponent } from './listagem-compras-
 import { FormularioComprasAtivosMotivosPedidoComponent } from './formulario-compras-ativos-motivos-pedido/formulario-compras-ativos-motivos-pedido.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import {  HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [ListagemComprasAtivosMotivosPedidoComponent, FormularioComprasAtivosMotivosPedidoComponent],
@@ -37,7 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatTooltipModule,
     MatListModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [CompraVeiculoMotivoPedidoResolve]
 })

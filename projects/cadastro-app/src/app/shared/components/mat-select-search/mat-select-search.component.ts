@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
-import { AbstractControl, FormControl } from "@angular/forms";
+import { FormControl } from "@angular/forms";
 import { MatSelect } from "@angular/material/select";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable,Subscription, forkJoin, of } from "rxjs";
@@ -36,7 +36,7 @@ export class MatSelectSearchComponent implements OnInit {
   search!: FormControl; //controle responsavel pela busca
   options!: Observable<any>; //observable responsavel pelo retorno da busca
   @Input() limitRecords: number = 10;
-  @Input() control!: AbstractControl; //controle que recebera o valor selecionado
+  @Input() control!: FormControl; //controle que recebera o valor selecionado
   @Input() labelCustom!: string; //label do campo
   @Input() service: any; //servico que sera utilzado para comunicacao com o backend
   @Input() controlRequired: boolean = false; //informa se o campo sera obrigatorio ou nao
@@ -557,7 +557,6 @@ export class MatSelectSearchComponent implements OnInit {
   }
 
   openLink() {
-    this.formPropertiesService.setFormID(this.formLink);
     let acesso = this.formPropertiesService.accessForm();
     if (!acesso) {
       // informa o usuario que ele nao tem acesso

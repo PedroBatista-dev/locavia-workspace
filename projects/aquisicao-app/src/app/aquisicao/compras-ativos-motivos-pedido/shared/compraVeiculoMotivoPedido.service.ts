@@ -8,6 +8,6 @@ import { BaseResourceService } from '../../../shared/service/base-resource.servi
 export class CompraVeiculoMotivoPedidoService extends BaseResourceService<CompraVeiculoMotivoPedido> {
 
   constructor(protected override injector: Injector) {
-    super('https://apiqa.locaviaweb.com.br/api/' + 'compra-veiculo-motivo-pedido', injector, CompraVeiculoMotivoPedido.fromJson)
+    super('http://localhost:3000/motivosPedido', injector, CompraVeiculoMotivoPedido.fromJson)
   }
 }

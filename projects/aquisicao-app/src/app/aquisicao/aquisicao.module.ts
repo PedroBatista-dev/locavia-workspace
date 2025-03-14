@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { AquisicaoRoutingModule } from './aquisicao-routing.module';
 
 
@@ -9,8 +8,7 @@ import { AquisicaoRoutingModule } from './aquisicao-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    AquisicaoRoutingModule,
-    BrowserModule
+    AquisicaoRoutingModule
   ]
 })
 export class AquisicaoModule { }

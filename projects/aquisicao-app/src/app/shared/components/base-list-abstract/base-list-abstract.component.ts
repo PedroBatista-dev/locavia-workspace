@@ -43,7 +43,7 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
   filtro!: Array<string>;
   @Input() filtroExpressao: string = "";
 
-  resources!: Paginate<T>;
+  resources!: any[];
 
   private subscription = new Subscription();
 
@@ -75,21 +75,10 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
     this.router = this.injector.get(Router);
 
     this.formPropertiesService = this.injector.get(FormPropertiesService);
-    // captura todas as informacoes do formulario de acordo com o usuario logado
-    this.formPropertiesService.setFormID(this.router.url);
     // busca as acoes disponiveis no formulario
     this.actionsAvailable = this.formPropertiesService.getActionsAvailableForm();
-    // busca as acoes que estao disponiveis no formulario
-    this.formPropertiesService.mountActionsMenu(this.menuListItems);
     // verifica se acao de inserir deve ficar habilitada
     this.activeActionNew = this.formPropertiesService.activeAction("Inserir");
-  }
-
-  // caso a aba esteja inativa e o usuario retorne para mesma o sistema atualiza os dados
-  private loadDataAfterReactivatePage() {
-    if (!document.hidden) {
-      this.applyFilter();
-    }
   }
 
   ngOnInit() {
@@ -168,7 +157,7 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
   }
 
   consultarItem(element: any) {
-    this.resources.data!.items!.forEach((item) => {
+    this.resources.forEach((item: any) => {
       this.listNavigation.push(item[this.key]);
     });
     localStorage.setItem("nav_ctrl", JSON.stringify(this.listNavigation));
@@ -177,13 +166,13 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
 
   buscarDados(pagina: any, total: any) {
     this.subscription.add(
-      this.resourceService.getByPaginate(pagina + 1, total, this.query, this.columns).subscribe(
-        (resources) => {
-          this.resources = resources;
+      this.resourceService.getByPaginate(pagina + 1, total, this.query).subscribe(
+        (resources: any) => {
+          this.resources = resources.dados;
 
-          this.dataSource = new MatTableDataSource<any>(this.resources.data!.items);
+          this.dataSource = new MatTableDataSource<any>(this.resources);
           this.afterNewSearch();
-          this.length = resources.data!.meta!.totalItems;
+          this.length = resources.totalItens;
           this.setLoader = false;
           this.getOrderByDescription();
           this.selection.clear();
@@ -215,8 +204,8 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
             this.resourceService.delete(query).subscribe(
               (result) => {
                 this.buscarDados(this.pageIndex, this.pageSize);
-                this.resources.data!.items = this.resources.data!.items!.filter((element) => element != resource);
-                this.dataSource = new MatTableDataSource<any>(this.resources.data!.items);
+                this.resources = this.resources.filter((element) => element != resource);
+                this.dataSource = new MatTableDataSource<any>(this.resources);
                 customSwal.fire("Deletado!", "Registro deletado com sucesso!", "success");
               },
               (error) => {
