@@ -4,12 +4,11 @@ import { MatDialog } from "@angular/material/dialog";
 import { VeiculoRestricao } from "../shared/veiculoRestricao.model";
 import { VeiculoRestricaoService } from "../shared/veiculoRestricao.service";
 import { BaseResourceFormComponent } from "../../../shared/components/base-resource-form/base-resource-form.component";
-import { ViacepService } from "../../../shared/service/viacep.service";
 
 @Component({
   selector: "app-formulario-veiculos-restricoes",
   templateUrl: "./formulario-veiculos-restricoes.component.html",
-  styleUrls: ["./formulario-veiculos-restricoes.component.scss"],
+  styleUrls: ["./formulario-veiculos-restricoes.component.css"],
 })
 export class FormularioVeiculosRestricoesComponent extends BaseResourceFormComponent<VeiculoRestricao> {
 
@@ -18,28 +17,24 @@ export class FormularioVeiculosRestricoesComponent extends BaseResourceFormCompo
   constructor(
     protected veiculoRestricaoService: VeiculoRestricaoService,
     protected override injector: Injector,
-    public viaCepService: ViacepService,
     private dialog: MatDialog
   ) {
     super(
       injector,
       new VeiculoRestricao(),
       veiculoRestricaoService,
-      VeiculoRestricao.fromJson,
-      "veiculoRestricao"
+      VeiculoRestricao.fromJson
     );
   }
 
   protected buildResourceForm() {
     this.resourceForm = this.formBuilder.group({
-      CodigoRestricao: [null],
+      id: [null],
       Descricao: [null, [Validators.required, Validators.minLength(2)]],
       VincularCliente: ['N', [Validators.required, Validators.maxLength(1)]],
       TipoVinculoCliente: ['P'],
       VincularContratoMaster: ['N', [Validators.required, Validators.maxLength(1)]],
       TipoVinculoContratoMaster: ['P'],
-      ManterStatusAtual: ['N'],
-      RestringirMovimentacao: ['N'],
     });
   }
   

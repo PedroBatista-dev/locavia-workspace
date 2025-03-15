@@ -1,5 +1,5 @@
 import { SelectionModel } from "@angular/cdk/collections";
-import { AfterContentChecked, Directive, Injector, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterContentChecked, Directive, Injector, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
@@ -7,13 +7,9 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { SweetAlertIcon } from "sweetalert2";
 import { BaseResourceModel } from "../../models/base-resource.model";
-import Paginate from "../../models/paginate.model";
 import { BaseResourceService } from "../../service/base-resource.service";
 import { FilterDataModel } from "../../models/filter-data.model";
-import { TableService } from "../../service/table.service";
 import { customSwal } from "../../styles/sweetalert";
-import { MatMenuListItem } from "../menu-acoes/menu-acoes.component";
-import { FormPropertiesService } from "../../service/form-properties.service";
 
 @Directive()
 export abstract class BaseListAbstract<T extends BaseResourceModel> implements OnInit, OnDestroy, AfterContentChecked {
@@ -21,33 +17,21 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
 
   displayedColumns: string[] = [];
   displayedColumnsFilter: any[] = [];
-  columns: Array<string> = [];
 
-  //Menu de Ações - ms
-  delay = 10000;
-  lastCall: any;
-  lastElement: any;
-
-  listNavigation: number[] = [];
   dataSource = new MatTableDataSource();
-  paginator!: MatPaginator;
   length: number | undefined = 0;
   pageSize = 5;
   pageSizeOptions: number[] = [5, 10, 15, 20];
   pageIndex: number = 0;
   pageEvent!: PageEvent;
   key!: string;
-  userPaginatorPreferences: Array<any> = [];
   selection = new SelectionModel<any>(true, []);
 
   filtro!: Array<string>;
-  @Input() filtroExpressao: string = "";
 
-  resources!: Paginate<T>;
+  resources!: any[];
 
   private subscription = new Subscription();
-
-  public tableService!: TableService;
 
   protected router: Router;
 
@@ -56,15 +40,7 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
 
   query: string = "";
 
-  // string que contem as acoes disponiveis no formulario
-  actionsAvailable = "";
-  // cria a lista de acoes do formulario
-  menuListItems: MatMenuListItem[] = [];
 
-  activeActionNew: boolean = false;
-  userLogged: any; //Variavel por capturar o usuario logado e seus dados
-
-  private formPropertiesService!: FormPropertiesService;
 
   constructor(
     protected injector: Injector,
@@ -73,19 +49,6 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
     protected jsonDataToResourceFn: (jsonData: any) => T
   ) {
     this.router = this.injector.get(Router);
-
-    this.formPropertiesService = this.injector.get(FormPropertiesService);
-    // busca as acoes disponiveis no formulario
-    this.actionsAvailable = this.formPropertiesService.getActionsAvailableForm();
-    // verifica se acao de inserir deve ficar habilitada
-    this.activeActionNew = this.formPropertiesService.activeAction("Inserir");
-  }
-
-  // caso a aba esteja inativa e o usuario retorne para mesma o sistema atualiza os dados
-  private loadDataAfterReactivatePage() {
-    if (!document.hidden) {
-      this.applyFilter();
-    }
   }
 
   ngOnInit() {
@@ -102,39 +65,16 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
     this.subscription.unsubscribe();
   }
 
-  afterDelay(trigger: any, element: any) {
-    this.gerarBotoes(element);
-    trigger.openMenu();
-  }
-
-  gerarBotoes(element: any) {
-    /** Não remover */
-  }
-
-  setPageSize() {
-    this.pageSize = this.tableService.rowsWithoutScroll;
-    if (this.pageSize >= 8) {
-      this.pageSizeOptions = [
-        Math.floor(this.pageSize / 2),
-        this.pageSize,
-        Math.floor((this.pageSize * 2) / 5) * 5,
-        25,
-      ];
-    } else {
-      this.pageSizeOptions = [this.pageSize, 15, 25];
-    }
-  }
-
   protected executaAcoesMenu(action: any, element: any) {
     switch (action) {
       case "Editar":
-        this.router.navigateByUrl(this.formPropertiesService.form.path + "/" + element[this.key] + "/editar");
+        this.router.navigateByUrl(`${this.router.routerState.snapshot.url.split('/')[1]}/${this.router.routerState.snapshot.url.split('/')[2]}/${element[this.key]}/editar`);
         break;
       case "Consultar":
-        this.router.navigateByUrl(this.formPropertiesService.form.path + "/" + element[this.key] + "/consultar");
+        this.router.navigateByUrl(`${this.router.routerState.snapshot.url.split('/')[1]}/${this.router.routerState.snapshot.url.split('/')[2]}/${element[this.key]}/consultar`);
         break;
       case "Deletar":
-        this.delete(element, [this.key] + "=" + element[this.key]);
+        this.delete(element, element[this.key]);
         break;
       default:
         break;
@@ -164,22 +104,22 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
   }
 
   consultarItem(element: any) {
-    this.resources.data!.items!.forEach((item) => {
-      this.listNavigation.push(item[this.key]);
-    });
-    localStorage.setItem("nav_ctrl", JSON.stringify(this.listNavigation));
-    this.tableService.consult(element, this.key);
+    let url = this.router.url;
+    if (url.includes("lista")) {
+      url = url.replace("/lista", "/" + element[this.key] + "/consultar");
+      this.router.navigateByUrl(url);
+    } 
   }
 
   buscarDados(pagina: any, total: any) {
     this.subscription.add(
-      this.resourceService.getByPaginate(pagina + 1, total, this.query, this.columns).subscribe(
-        (resources) => {
-          this.resources = resources;
+      this.resourceService.getByPaginate(pagina + 1, total, this.query).subscribe(
+        (resources: any) => {
+          this.resources = resources.dados;
 
-          this.dataSource = new MatTableDataSource<any>(this.resources.data!.items);
+          this.dataSource = new MatTableDataSource<any>(this.resources);
           this.afterNewSearch();
-          this.length = resources.data!.meta!.totalItems;
+          this.length = resources.totalItens;
           this.setLoader = false;
           this.getOrderByDescription();
           this.selection.clear();
@@ -193,6 +133,12 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
   }
 
   protected afterNewSearch() {}
+
+  public novoRegistro() {
+    let url = this.router.url;
+    url = url.replace("/lista", "/novo");
+    this.router.navigateByUrl(url);
+  }
 
   async delete(resource: T, query: string) {
     return customSwal
@@ -211,8 +157,8 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
             this.resourceService.delete(query).subscribe(
               (result) => {
                 this.buscarDados(this.pageIndex, this.pageSize);
-                this.resources.data!.items = this.resources.data!.items!.filter((element) => element != resource);
-                this.dataSource = new MatTableDataSource<any>(this.resources.data!.items);
+                this.resources = this.resources.filter((element) => element != resource);
+                this.dataSource = new MatTableDataSource<any>(this.resources);
                 customSwal.fire("Deletado!", "Registro deletado com sucesso!", "success");
               },
               (error) => {

@@ -1,0 +1,74 @@
+{
+  "motivosPedido": [
+    {
+      "id": "3",
+      "Descricao": "Aquisição para Aluguel",
+      "StatusMotivoPedido": "A",
+      "CodigoRestricao": "3",
+      "Estoque": "S",
+      "RenovacaoFrota": "N",
+      "NovaLocacao": "N",
+      "GerarAtivoInclusaoPedido": "N"
+    },
+    {
+      "id": "5",
+      "Descricao": "Renovação de Frota Antiga",
+      "StatusMotivoPedido": "A",
+      "CodigoRestricao": "5",
+      "Estoque": "S",
+      "RenovacaoFrota": "S",
+      "NovaLocacao": "N",
+      "GerarAtivoInclusaoPedido": "N"
+    },
+    {
+      "id": "7",
+      "Descricao": "Compra por Incentivo Fiscal",
+      "StatusMotivoPedido": "A",
+      "CodigoRestricao": "7",
+      "Estoque": "S",
+      "RenovacaoFrota": "N",
+      "NovaLocacao": "N",
+      "GerarAtivoInclusaoPedido": "N"
+    },
+    {
+      "id": "8",
+      "Descricao": "Aquisição para Frota Corporativa",
+      "StatusMotivoPedido": "A",
+      "CodigoRestricao": "8",
+      "Estoque": "N",
+      "RenovacaoFrota": "S",
+      "NovaLocacao": "N",
+      "GerarAtivoInclusaoPedido": "N"
+    },
+    {
+      "id": "9",
+      "Descricao": "Recebimento de Veículo em Doação",
+      "StatusMotivoPedido": "A",
+      "CodigoRestricao": "9",
+      "Estoque": "S",
+      "RenovacaoFrota": "N",
+      "NovaLocacao": "N",
+      "GerarAtivoInclusaoPedido": "N"
+    },
+    {
+      "id": "10",
+      "Descricao": "Aquisição para Carro de Serviço",
+      "StatusMotivoPedido": "Ativo",
+      "CodigoRestricao": "R010",
+      "Estoque": "S",
+      "RenovacaoFrota": "S",
+      "NovaLocacao": "N",
+      "GerarAtivoInclusaoPedido": "N"
+    },
+    {
+      "Descricao": "Desabilitar",
+      "StatusMotivoPedido": "D",
+      "CodigoRestricao": "3",
+      "Estoque": "S",
+      "RenovacaoFrota": "N",
+      "id": "DWLlO2j",
+      "NovaLocacao": "N",
+      "GerarAtivoInclusaoPedido": "N"
+    }
+  ]
+}

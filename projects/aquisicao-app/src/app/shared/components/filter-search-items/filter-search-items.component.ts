@@ -3,7 +3,6 @@ import { FormControl } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { FilterDataModel } from "../../models/filter-data.model";
-import { TableService } from "../../service/table.service";
 
 @Component({
   selector: "app-filter-search-items",
@@ -27,8 +26,9 @@ export class FilterSearchItemsComponent {
   searchTypeControl = new FormControl("C");
   search = new FormControl("");
   query: string = "";
+  public isFilterButtonActive: boolean = false;
 
-  constructor(public tableService: TableService) {}
+  constructor() {}
 
   ngOnInit() {
     this.filterParam = this.columnsFilter[0];
@@ -98,5 +98,16 @@ export class FilterSearchItemsComponent {
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+  }
+
+  public showFilterLabel() {
+    this.isFilterButtonActive = true;
+    setTimeout(() => {
+      this.hideFilterLabel();
+    }, 5000);
+  }
+  
+  public hideFilterLabel() {
+    this.isFilterButtonActive = false;
   }
 }

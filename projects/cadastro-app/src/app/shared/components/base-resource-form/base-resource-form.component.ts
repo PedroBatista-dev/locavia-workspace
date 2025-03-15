@@ -16,8 +16,6 @@ import {
     FormBuilder,
     FormGroup,
 } from "@angular/forms";
-import { MatDialogRef } from "@angular/material/dialog";
-import { MatPaginator, MatPaginatorIntl, PageEvent } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatTabGroup } from "@angular/material/tabs";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -26,10 +24,7 @@ import { BehaviorSubject, Subject, Subscription } from "rxjs";
 import { SweetAlertIcon } from "sweetalert2";
 import { BaseResourceModel } from "../../models/base-resource.model";
 import { BaseResourceService } from "../../service/base-resource.service";
-import { TableService } from "../../service/table.service";
 import { customSwal } from "../../styles/sweetalert";
-import { setDateValid } from "../../routines/setDateValid";
-import { FormPropertiesService } from "../../service/form-properties.service";
 
 @Directive()
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
@@ -45,7 +40,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
   setLoader: boolean = true;
   userLogged: any; //Variavel por capturar o usuario logado e seus dados
   formName!: string; //nome do formulario
-  tableService: TableService;
   //Menu de Ações - ms
   delay = 10000;
   lastCall: any;
@@ -76,7 +70,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
 
   pageScroll: number = 0;
 
-  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   length = 0;
   pageSize = 10;
   pageIndex = 0;
@@ -92,11 +85,9 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
   tabIndex: number = 0;
 
   private subscription = new Subscription();
-  private formPropertiesService: FormPropertiesService;
   protected route: ActivatedRoute;
   protected router: Router;
   protected formBuilder: FormBuilder;
-  protected dialogBase: MatDialogRef<any> | null;
   private el: ElementRef;
   protected endRequisition$$ = new BehaviorSubject<boolean>(false);
 
@@ -104,20 +95,12 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
     protected injector: Injector,
     public resource: T,
     protected resourceService: BaseResourceService<T>,
-    protected jsonDataToResourceFn: (jsonData: any) => T,
-    public Entidade: string
+    protected jsonDataToResourceFn: (jsonData: any) => T
   ) {
-    try {
-      this.dialogBase = this.injector.get(MatDialogRef);
-    } catch {
-      this.dialogBase = null;
-    }
     this.route = this.injector.get(ActivatedRoute);
     this.el = this.injector.get(ElementRef);
     this.router = this.injector.get(Router);
     this.formBuilder = this.injector.get(FormBuilder);
-    this.tableService = injector.get(TableService);
-    this.formPropertiesService = this.injector.get(FormPropertiesService);
   }
 
   ngOnInit() {
@@ -136,25 +119,12 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
 
   ngAfterContentChecked() {
     this.setPageTitle();
-
-    if (this.paginator) {
-      const intl = new MatPaginatorIntl();
-      intl.itemsPerPageLabel = "Itens por página:";
-      const auxGetRange = intl.getRangeLabel;
-      intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
-        return auxGetRange(page, pageSize, length).replace(/of/g, "de");
-      };
-      this.paginator._intl = intl;
-      this.paginator._intl.changes.next();
-    }
   }
 
   ngAfterContentInit(): void {}
 
   ngAfterViewInit() {
     this.loadResourcesAfterViewInit();
-    this.setTabCount();
-    this.setScrollListener();
   }
 
   ngAfterViewChecked() {}
@@ -223,46 +193,15 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
     });
   }
 
-  getServerData(event: PageEvent) {
-    this.pageSize = event.pageSize;
-    this.pageIndex = event.pageIndex;
-  }
-
-  protected refreshResource() {
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl("/", { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
-  }
-
-  protected loadResourceModal() {
-    if (this.resourceForm) this.resource = this.resourceForm.value;
-  }
-
   protected loadResource() {
-    if ((this.currentAction == "editar" || this.isConsultar()) && this.Entidade) {
-      if (this.route.snapshot.data[this.Entidade]) {
-        let resource = this.route.snapshot.data[this.Entidade];
-        resource = setDateValid(resource);
-        // captura os dados do log do registro
-        let { InseridoPor, InseridoEm, ModificadoPor, ModificadoEm } = resource;
-        this.logData = { InseridoPor, InseridoEm, ModificadoPor, ModificadoEm };
-
-        this.setFormGroup(this.resourceForm, resource);
-
-        if (resource) this.resourceForm.patchValue(resource);
-
+    if ((this.currentAction == "editar" || this.isConsultar())) {
+      this.resourceService.getById(this.route.snapshot.params['id']).subscribe(data => {
+        this.setFormGroup(this.resourceForm, data);
+        this.resourceForm.patchValue(data);
         this.resource = this.resourceForm.value;
-
         this.loadResourcesOptionsAfterForm();
-      } else {
-        const error = {
-          status: 500,
-          message: "Ocorreu um erro no servidor, tente mais tarde.",
-        };
-        this.actionsForError(error);
-      }
-      this.setLoader = false;
+        this.setLoader = false;
+      });
     } else {
       this.setLoader = false;
     }
@@ -377,8 +316,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
 
     const [, module, resources, , method] = this.router.url.split("/");
 
-    if (this.dialogBase) this.dialogBase.close(this.resourceForm.value);
-
     if (
       resources !== "organizacoes" &&
       resources !== "parametros-configuracao-senha" &&
@@ -443,65 +380,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
     });
   }
 
-  navigateNext() {
-    localStorage.setItem("nav_ctrl", JSON.stringify(this.navigationControl));
-    let url = this.router.url;
-    this.router.navigateByUrl("cadastro/ativos", { skipLocationChange: true }).then(() => {
-      this.router.navigateByUrl(url.replace(String(this.navigationControl[this.ncIndex]), String(this.ncNext)));
-    });
-  }
-
-  navigatePrevious() {
-    localStorage.setItem("nav_ctrl", JSON.stringify(this.navigationControl));
-    let url = this.router.url;
-    this.router.navigateByUrl("cadastro/ativos", { skipLocationChange: true }).then(() => {
-      this.router.navigateByUrl(url.replace(String(this.navigationControl[this.ncIndex]), String(this.ncPrevious)));
-    });
-  }
-
-  //funções para navegar entre abas
-
-  setTabCount() {
-    this.tabCount = this.tabGroup?._tabs.length ?? 0;
-  }
-
-  navigateNextTab() {
-    this.tabGroup.selectedIndex = (this.tabGroup.selectedIndex! + 1) % this.tabCount;
-  }
-
-  navigatePreviousTab() {
-    this.tabGroup.selectedIndex == 0
-      ? (this.tabGroup.selectedIndex = this.tabCount - 1)
-      : this.tabGroup.selectedIndex!--;
-  }
-
-  setScrollListener() {
-    const card = this.el.nativeElement.querySelector(".card");
-    const tabHeader = this.el.nativeElement.querySelector("mat-tab-header");
-    const tabWrapper = this.el.nativeElement.querySelector(".mat-tab-body-wrapper");
-    if (card) {
-      card.addEventListener("scroll", (event: any) => {
-        let hasOpenProcess = !this.el.nativeElement.querySelector(".exibir-processo-locavia")?.hasAttribute("hidden");
-        if (hasOpenProcess) {
-          if (card.scrollTop > 250 && event.target.offsetWidth != 1500) {
-            tabHeader ? tabHeader.classList.add("fixed-tab") : null;
-          } else {
-            tabHeader ? tabHeader.classList.remove("fixed-tab") : null;
-            tabWrapper ? tabWrapper.classList.remove("pt-70") : null;
-          }
-        } else {
-          if (card.scrollTop > 160 && event.target.offsetWidth != 1500) {
-            tabHeader ? tabHeader.classList.add("fixed-tab") : null;
-            tabWrapper ? tabWrapper.classList.add("pt-70") : null;
-          } else {
-            tabHeader ? tabHeader.classList.remove("fixed-tab") : null;
-            tabWrapper ? tabWrapper.classList.remove("pt-70") : null;
-          }
-        }
-      });
-    }
-  }
-
   // habilita os controls fo formulario
   enableControls() {
     const [, module, resources] = this.router.url.split("/");
@@ -514,11 +392,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
     if (url !== "") this.router.navigateByUrl(url);
     // caso possua um form modal realiza o fechamento do mesmo
     if (modalForm) modalForm.close();
-  }
-
-  // funcao chamada para habilitar ou nao o botao editar dos formularios
-  public validateEdition() {
-    return this.isConsultar() && this.formPropertiesService.activeAction("Editar");
   }
 
   isConsultar(): boolean {

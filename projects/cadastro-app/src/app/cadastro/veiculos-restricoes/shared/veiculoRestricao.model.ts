@@ -4,11 +4,11 @@ export class VeiculoRestricao extends BaseResourceModel {
     constructor(
         public CodigoRestricao?: number,
         public Descricao?: string,
-        public CodigoOrganizacao?: string,
         public VincularCliente?: string,
         public TipoVinculoCliente?: string,
         public VincularContratoMaster?: string,
-        public TipoVinculoContratoMaster?: string
+        public TipoVinculoContratoMaster?: string,
+        public CodigoOrganizacao?: string
     ) {
         super();
     }

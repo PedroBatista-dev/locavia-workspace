@@ -13,6 +13,7 @@ import { VeiculoRestricaoService } from 'projects/cadastro-app/src/app/cadastro/
 export class FormularioComprasAtivosMotivosPedidoComponent extends BaseResourceFormComponent<CompraVeiculoMotivoPedido> {
 
   override formName = 'Motivo Pedido de Compra de Ativo';
+  items: any[] = [];
 
   constructor(
     protected compraVeiculoMotivoPedidoService: CompraVeiculoMotivoPedidoService,
@@ -23,14 +24,13 @@ export class FormularioComprasAtivosMotivosPedidoComponent extends BaseResourceF
       injector,
       new CompraVeiculoMotivoPedido(),
       compraVeiculoMotivoPedidoService,
-      CompraVeiculoMotivoPedido.fromJson,
-      'compraVeiculoMotivoPedido'
+      CompraVeiculoMotivoPedido.fromJson
     )
   }
 
   protected buildResourceForm(): void {
     this.resourceForm = this.formBuilder.group({
-      CodigoMotivoPedido: [null],
+      id: [null],
       Descricao: [null, [Validators.required, Validators.minLength(3)]],
       StatusMotivoPedido: [null, [Validators.required]],
       CodigoRestricao: [null],
@@ -39,6 +39,12 @@ export class FormularioComprasAtivosMotivosPedidoComponent extends BaseResourceF
       NovaLocacao: ['N'],
       GerarAtivoInclusaoPedido: ['N']
     })
+  }
+
+  override loadResourcesOptions(): void {
+    this.veiculoRestricaoService.getAll().subscribe(data => {
+      this.items = data;
+    });
   }
 
 }

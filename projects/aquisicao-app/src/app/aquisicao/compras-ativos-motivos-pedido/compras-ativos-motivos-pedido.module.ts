@@ -13,7 +13,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ComprasVeiculosMotivosPedidoRoutingModule } from './compras-ativos-motivos-pedido-routing.module';
-import { CompraVeiculoMotivoPedidoResolve } from './shared/compraVeiculoMotivoPedido.resolve';
 import { ListagemComprasAtivosMotivosPedidoComponent } from './listagem-compras-ativos-motivos-pedido/listagem-compras-ativos-motivos-pedido.component';
 import { FormularioComprasAtivosMotivosPedidoComponent } from './formulario-compras-ativos-motivos-pedido/formulario-compras-ativos-motivos-pedido.component';
 import { SharedModule } from '../../shared/shared.module';
@@ -40,7 +39,6 @@ import {  HttpClientModule } from '@angular/common/http';
     MatListModule,
     ReactiveFormsModule,
     HttpClientModule
-  ],
-  providers: [CompraVeiculoMotivoPedidoResolve]
+  ]
 })
 export class ComprasAtivosMotivosPedidoModule {}

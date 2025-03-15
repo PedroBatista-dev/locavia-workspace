@@ -2,18 +2,18 @@
     <div class="btn-container" #elementRef>
         <div class="elements-container" [ngClass]="{'custom-button': customButton}">
             <div class="form-controls" [ngClass]="{'custom-button': customButton}">
-                <button type="button" mat-stroked-button class="mr-2 secondary" (click)="onVoltarClick($event)">
+                <button type="button" mat-stroked-button class="margem-direita secondary" (click)="onVoltarClick($event)">
                     Voltar
                 </button>
     
                 <div class="button-tooltip">
                     <button mat-flat-button color="primary" id="submitBtn" [class.spinner]="showLoader"
-                        (click)="onSaveClick()" class="mr-2 save-btn save-erros" type="submit" *ngIf="condicoesSalvar"
+                        (click)="onSaveClick()" class="margem-direita save-btn save-erros" type="submit" *ngIf="condicoesSalvar"
                         [disabled]="disabledSalvar">
                         Salvar
                     </button>
     
-                    <button mat-flat-button color="primary" class="mr-2 save-btn save-erros" type="button"
+                    <button mat-flat-button color="primary" class="margem-direita save-btn save-erros" type="button"
                         (click)="onEditarClick($event)" *ngIf="condicoesEditar">
                         Editar
                     </button>
@@ -25,13 +25,13 @@
                 <div class="custom-buttons" *ngIf="getCondicionToShowCustomButton()" (mouseover)="showInfo()" (mouseleave)="hiddenInfo()">
                     <ng-container *ngIf="customButton.type == 'primary' || !customButton.type || customButton.type.length == 0">
                         <button type="button" color="primary" mat-flat-button
-                            class="{{customButton.class ? customButton.class : 'mr-2'}}" (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
+                            class="{{customButton.class ? customButton.class : 'margem-direita'}}" (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
                             {{customButton.name}}
                         </button>
                     </ng-container>
                     <ng-container *ngIf="customButton.type == 'secondary'">
                         <button type="button" mat-stroked-button
-                            class="{{customButton.class ? customButton.class : 'mr-2 secondary'}}"
+                            class="{{customButton.class ? customButton.class : 'margem-direita secondary'}}"
                             (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
                             {{customButton.name}} 
                         </button>
@@ -42,7 +42,7 @@
 
                 
                 <div class="otherOptions" *ngIf="otherOptions">
-                    <button type="button" mat-flat-button class="mr-2 buttonOtherOptions"
+                    <button type="button" mat-flat-button class="margem-direita buttonOtherOptions"
                         [matMenuTriggerFor]="menu">
                         <mat-icon inline="true" class="filter-button"
                         >expand_less</mat-icon> Outras ações
@@ -77,15 +77,15 @@
 <ng-container *ngIf="showErrors == false">
     <div class="btn-container">
         <div class="form-controls" [ngClass]="{'custom-button': customButton}">
-            <button type="button" mat-stroked-button class="mr-2 secondary" (click)="onVoltarClick($event)">
+            <button type="button" mat-stroked-button class="margem-direita secondary" (click)="onVoltarClick($event)">
                 Voltar
             </button>
     
-            <button mat-flat-button color="primary" id="submitBtn"  (click)="onSaveClick()" class="mr-2 save-btn" type="submit" *ngIf="condicoesSalvar"
+            <button mat-flat-button color="primary" id="submitBtn"  (click)="onSaveClick()" class="margem-direita save-btn" type="submit" *ngIf="condicoesSalvar"
                 [disabled]="disabledSalvar">
                     Salvar
             </button>
-            <button mat-flat-button color="primary" class="mr-2 save-btn" type="button" (click)="onEditarClick($event)"
+            <button mat-flat-button color="primary" class="margem-direita save-btn" type="button" (click)="onEditarClick($event)"
                 *ngIf="condicoesEditar">
                 Editar
             </button>
@@ -93,13 +93,13 @@
             <div class="custom-buttons" *ngIf="getCondicionToShowCustomButton()" (mouseover)="showInfo()" (mouseleave)="hiddenInfo()">
                 <ng-container *ngIf="customButton.type == 'primary' || !customButton.type || customButton.type.length == 0">
                     <button type="button" color="primary" mat-flat-button
-                        class="{{customButton.class ? customButton.class : 'mr-2'}}" (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
+                        class="{{customButton.class ? customButton.class : 'margem-direita'}}" (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
                         {{customButton.name}}
                     </button>
                 </ng-container>
                 <ng-container *ngIf="customButton.type == 'secondary'">
                     <button type="button" mat-stroked-button
-                        class="{{customButton.class ? customButton.class : 'mr-2 secondary'}}"
+                        class="{{customButton.class ? customButton.class : 'margem-direita secondary'}}"
                         (click)="onChangeCustom($event)" [disabled]="customButton.disabled">
                         {{customButton.name}} 
                     </button>
@@ -109,7 +109,7 @@
             </div>
             
             <div class="otherOptions" *ngIf="otherOptions">
-                <button type="button" mat-flat-button class="mr-2 buttonOtherOptions"
+                <button type="button" mat-flat-button class="margem-direita buttonOtherOptions"
                     [matMenuTriggerFor]="menu">
                     <mat-icon inline="true" class="filter-button"
                     >expand_less</mat-icon> Outras ações

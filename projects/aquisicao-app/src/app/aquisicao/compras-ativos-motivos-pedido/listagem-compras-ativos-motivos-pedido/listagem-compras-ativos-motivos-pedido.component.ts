@@ -2,7 +2,6 @@ import { Component, Injector } from '@angular/core';
 import { CompraVeiculoMotivoPedido } from '../shared/compraVeiculoMotivoPedido.model';
 import { CompraVeiculoMotivoPedidoService } from '../shared/compraVeiculoMotivoPedido.service';
 import { BaseListAbstract } from '../../../shared/components/base-list-abstract/base-list-abstract.component';
-import { TableService } from '../../../shared/service/table.service';
 
 @Component({
   selector: 'app-listagem-compras-ativos-motivos-pedido',
@@ -19,11 +18,11 @@ export class ListagemComprasAtivosMotivosPedidoComponent extends BaseListAbstrac
     ["Descricao", "Descricao_like"],
   ];
 
-  override key: string = "CodigoMotivoPedido";
+  override key: string = "id";
 
   constructor(
     protected compraVeiculoMotivoPedidoService: CompraVeiculoMotivoPedidoService,
-    protected override injector: Injector, public override tableService: TableService
+    protected override injector: Injector
   ) {
     super(
       injector,

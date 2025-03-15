@@ -3,16 +3,16 @@
       <div class="custom-filter">
         <input
           placeholder="Pesquisar por {{ filterParam[0] }}"
-          (focusout)="tableService.hideFilterLabel()"
-          (keyup)="tableService.showFilterLabel()"
+          (focusout)="hideFilterLabel()"
+          (keyup)="showFilterLabel()"
           (keyup.enter)="searchEnter()"
           [formControl]="search"
           #input
         />
         <button
           matTooltip="Filtro"
-          (click)="tableService.showFilterLabel()"
-          [ngClass]="{ active: tableService.isFilterButtonActive }"
+          (click)="showFilterLabel()"
+          [ngClass]="{ active: isFilterButtonActive }"
           [matMenuTriggerFor]="menu"
         >
           <mat-icon inline="true" class="filter-button mr-1">filter_list</mat-icon

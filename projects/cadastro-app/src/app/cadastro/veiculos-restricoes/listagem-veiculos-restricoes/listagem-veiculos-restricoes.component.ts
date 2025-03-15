@@ -2,7 +2,6 @@ import { Component, Injector } from '@angular/core';
 import { VeiculoRestricao } from '../shared/veiculoRestricao.model';
 import { VeiculoRestricaoService } from '../shared/veiculoRestricao.service';
 import { BaseListAbstract } from '../../../shared/components/base-list-abstract/base-list-abstract.component';
-import { TableService } from '../../../shared/service/table.service';
 
 
 @Component({
@@ -17,9 +16,9 @@ export class ListagemVeiculosRestricoesComponent extends BaseListAbstract<Veicul
     ['Descrição', 'VeiculosRestricoes.Descricao'],
   ];
 
-  override key: string = 'CodigoRestricao';
+  override key: string = 'id';
 
-  constructor(private veiculoRestricaoService: VeiculoRestricaoService, protected override injector: Injector, public override tableService: TableService) {
+  constructor(private veiculoRestricaoService: VeiculoRestricaoService, protected override injector: Injector) {
     super(injector, new VeiculoRestricao(), veiculoRestricaoService, VeiculoRestricao.fromJson)
   }
 

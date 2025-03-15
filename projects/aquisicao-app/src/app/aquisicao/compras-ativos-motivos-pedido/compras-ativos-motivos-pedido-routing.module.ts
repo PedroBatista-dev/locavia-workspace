@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompraVeiculoMotivoPedidoResolve } from './shared/compraVeiculoMotivoPedido.resolve';
 import { ListagemComprasAtivosMotivosPedidoComponent } from './listagem-compras-ativos-motivos-pedido/listagem-compras-ativos-motivos-pedido.component';
 import { FormularioComprasAtivosMotivosPedidoComponent } from './formulario-compras-ativos-motivos-pedido/formulario-compras-ativos-motivos-pedido.component';
 
@@ -20,14 +19,12 @@ const routes: Routes = [
     component: FormularioComprasAtivosMotivosPedidoComponent,
   },
   {
-    path: ":CodigoMotivoPedido/editar",
+    path: ":id/editar",
     component: FormularioComprasAtivosMotivosPedidoComponent,
-    resolve: { compraVeiculoMotivoPedido: CompraVeiculoMotivoPedidoResolve },
   },
   {
-    path: ":CodigoMotivoPedido/consultar",
+    path: ":id/consultar",
     component: FormularioComprasAtivosMotivosPedidoComponent,
-    resolve: { compraVeiculoMotivoPedido: CompraVeiculoMotivoPedidoResolve },
   },
 ];
 

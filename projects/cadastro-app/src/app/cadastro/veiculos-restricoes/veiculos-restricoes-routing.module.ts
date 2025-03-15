@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { VeiculoRestricaoResolve } from "./shared/veiculoRestricao.resolve";
 import { ListagemVeiculosRestricoesComponent } from "./listagem-veiculos-restricoes/listagem-veiculos-restricoes.component";
 import { FormularioVeiculosRestricoesComponent } from "./formulario-veiculos-restricoes/formulario-veiculos-restricoes.component";
 
@@ -9,6 +8,7 @@ const routes: Routes = [
   {
     path: "",
     redirectTo: "lista",
+    pathMatch: 'full'
   },
   {
     path: "lista",
@@ -19,14 +19,12 @@ const routes: Routes = [
     component: FormularioVeiculosRestricoesComponent,
   },
   {
-    path: ":CodigoRestricao/editar",
+    path: ":id/editar",
     component: FormularioVeiculosRestricoesComponent,
-    resolve: { veiculoRestricao: VeiculoRestricaoResolve },
   },
   {
-    path: ":CodigoRestricao/consultar",
+    path: ":id/consultar",
     component: FormularioVeiculosRestricoesComponent,
-    resolve: { veiculoRestricao: VeiculoRestricaoResolve },
   },
 ];
 

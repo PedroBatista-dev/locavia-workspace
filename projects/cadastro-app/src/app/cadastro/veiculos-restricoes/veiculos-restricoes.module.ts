@@ -19,7 +19,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 
 import { MatPaginatorModule } from "@angular/material/paginator";
 
-import { VeiculoRestricaoResolve } from "./shared/veiculoRestricao.resolve";
 import { SharedModule } from "../../shared/shared.module";
 import { ListagemVeiculosRestricoesComponent } from "./listagem-veiculos-restricoes/listagem-veiculos-restricoes.component";
 import { FormularioVeiculosRestricoesComponent } from "./formulario-veiculos-restricoes/formulario-veiculos-restricoes.component";
@@ -49,7 +48,6 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatAutocompleteModule,
     MatTooltipModule,
     ReactiveFormsModule
-  ],
-  providers: [VeiculoRestricaoResolve],
+  ]
 })
 export class VeiculosRestricoesModule {}

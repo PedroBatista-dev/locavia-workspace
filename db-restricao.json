@@ -1,0 +1,84 @@
+{
+  "veiculosRestricoes": [
+    {
+      "Descricao": "Restrição de Veículo por Tipo de Uso",
+      "VincularCliente": "N",
+      "TipoVinculoCliente": "P",
+      "VincularContratoMaster": "N",
+      "TipoVinculoContratoMaster": "P",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "Descricao": "Restrições de Circulação",
+      "VincularCliente": "S",
+      "TipoVinculoCliente": "P",
+      "VincularContratoMaster": "N",
+      "TipoVinculoContratoMaster": "P"
+    },
+    {
+      "id": "3",
+      "Descricao": "Proibição de Modificações",
+      "VincularCliente": "S",
+      "TipoVinculoCliente": "O",
+      "VincularContratoMaster": "N",
+      "TipoVinculoContratoMaster": "O"
+    },
+    {
+      "id": "4",
+      "Descricao": "Limitação de Quilometragem",
+      "VincularCliente": "S",
+      "TipoVinculoCliente": "P",
+      "VincularContratoMaster": "N",
+      "TipoVinculoContratoMaster": "P"
+    },
+    {
+      "id": "5",
+      "Descricao": "Proibição de Transporte de Carga Pesada",
+      "VincularCliente": "S",
+      "TipoVinculoCliente": "O",
+      "VincularContratoMaster": "S",
+      "TipoVinculoContratoMaster": "O"
+    },
+    {
+      "id": "6",
+      "Descricao": "Proibição de Beber e Dirigir",
+      "VincularCliente": "N",
+      "TipoVinculoCliente": "P",
+      "VincularContratoMaster": "N",
+      "TipoVinculoContratoMaster": "P"
+    },
+    {
+      "id": "7",
+      "Descricao": "Restrições de Uso em Ambientes Off-Road",
+      "VincularCliente": "S",
+      "TipoVinculoCliente": "O",
+      "VincularContratoMaster": "N",
+      "TipoVinculoContratoMaster": "O"
+    },
+    {
+      "id": "8",
+      "Descricao": "Limitação de Idade do Motorista",
+      "VincularCliente": "N",
+      "TipoVinculoCliente": "P",
+      "VincularContratoMaster": "S",
+      "TipoVinculoContratoMaster": "P"
+    },
+    {
+      "id": "9",
+      "Descricao": "Proibição de Transporte de Animais",
+      "VincularCliente": "S",
+      "TipoVinculoCliente": "O",
+      "VincularContratoMaster": "N",
+      "TipoVinculoContratoMaster": "O"
+    },
+    {
+      "id": "10",
+      "Descricao": "Restrição de Motorista Não Autorizado",
+      "VincularCliente": "S",
+      "TipoVinculoCliente": "P",
+      "VincularContratoMaster": "S",
+      "TipoVinculoContratoMaster": "P"
+    }
+  ]
+}

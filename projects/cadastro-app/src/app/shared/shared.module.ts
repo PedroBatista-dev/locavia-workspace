@@ -1,6 +1,5 @@
 import { CommonModule } from "@angular/common";
 import { BodyComponent } from "./components/body/body.component";
-import { MenuAcoesComponent } from "./components/menu-acoes/menu-acoes.component";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -19,7 +18,6 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatTabsModule } from "@angular/material/tabs";
 import { NgModule } from "@angular/core";
-import { MatSelectSearchComponent } from "./components/mat-select-search/mat-select-search.component";
 import { ErrorValidatorsDirective } from "./directives/error-validators.directive";
 import { ButtonFormComponent } from "./components/button-form/button-form.component";
 import { ShowInfoComponent } from "./components/show-info/show-info.component";
@@ -29,8 +27,6 @@ import { FilterSearchItemsComponent } from "./components/filter-search-items/fil
 @NgModule({
   declarations: [
     BodyComponent,
-    MenuAcoesComponent,
-    MatSelectSearchComponent,
     ErrorValidatorsDirective,
     ButtonFormComponent,
     ShowInfoComponent,
@@ -60,8 +56,6 @@ import { FilterSearchItemsComponent } from "./components/filter-search-items/fil
   ],
   exports: [
     BodyComponent,
-    MenuAcoesComponent,
-    MatSelectSearchComponent,
     ErrorValidatorsDirective,
     ButtonFormComponent,
     ShowInfoComponent,
