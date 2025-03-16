@@ -33,6 +33,7 @@ module.exports = {
         filename: "remoteEntry.js",
         exposes: {
             './AquisicaoModule': './projects/aquisicao-app/src/app/aquisicao/aquisicao.module.ts',
+            './ComprasAtivosMotivosPedidoModule': './projects/aquisicao-app/src/app/aquisicao/compras-ativos-motivos-pedido/compras-ativos-motivos-pedido.module.ts',
         },        
         
         // For hosts (please adjust)

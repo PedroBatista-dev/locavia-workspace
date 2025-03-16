@@ -1,6 +1,10 @@
-<h1>Locavia Web</h1>
-<br />
-<a routerLink='/'>Home</a>&nbsp;&nbsp;
-<a routerLink='/aquisicao'>Aquisição</a>
+<mat-toolbar color="primary" class="custom-toolbar">
+    <span>Locavia Web</span>
+    <span class="spacer"></span>
+    <a mat-button routerLink="/" class="custom-link">Home</a>
+    <a mat-button routerLink="/motivo" class="custom-link">Motivos Pedido de Compra de Ativo</a>
+    <a mat-button routerLink="/restricao" class="custom-link">Restrições ao Veículo</a>
+  </mat-toolbar>
+  
 
 <router-outlet></router-outlet>

@@ -1,0 +1,22 @@
+.custom-toolbar {
+    background-color: #fbc119; /* Cor de fundo principal */
+  }
+  
+  .custom-link {
+    color: #fff; /* Cor dos links */
+    text-decoration: none; /* Remove o sublinhado */
+  }
+  
+  .custom-link:hover {
+    color: #fff; /* Cor dos links ao passar o mouse */
+  }
+  
+  /* Para garantir que o texto na toolbar tenha sempre boa visibilidade */
+  mat-toolbar span {
+    color: #fff; /* Cor do texto do título */
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  

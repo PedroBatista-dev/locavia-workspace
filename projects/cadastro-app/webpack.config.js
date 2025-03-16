@@ -11,7 +11,8 @@ sharedMappings.register(
 module.exports = {
   output: {
     uniqueName: "cadastroApp",
-    publicPath: "auto"
+    publicPath: "auto",
+    scriptType: "text/javascript"
   },
   optimization: {
     runtimeChunk: false
@@ -26,14 +27,14 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-        library: { type: "module" },
 
         // For remotes (please adjust)
-        // name: "cadastroApp",
-        // filename: "remoteEntry.js",
-        // exposes: {
-        //     './Component': './projects/cadastro-app/src/app/app.component.ts',
-        // },        
+        name: "cadastroApp",
+        filename: "remoteEntry.js",
+        exposes: {
+            './CadastroModule': './projects/cadastro-app/src/app/cadastro/cadastro.module.ts',
+            './VeiculosRestricoesModule': './projects/cadastro-app/src/app/cadastro/veiculos-restricoes/veiculos-restricoes.module.ts',
+        },        
         
         // For hosts (please adjust)
         // remotes: {

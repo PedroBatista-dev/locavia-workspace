@@ -13,7 +13,7 @@ export class ListagemVeiculosRestricoesComponent extends BaseListAbstract<Veicul
 
   override displayedColumns: string[] = ['Descricao', 'Acoes'];
   override displayedColumnsFilter: any[] = [
-    ['Descrição', 'VeiculosRestricoes.Descricao'],
+    ['Descrição', 'Descricao_like'],
   ];
 
   override key: string = 'id';
