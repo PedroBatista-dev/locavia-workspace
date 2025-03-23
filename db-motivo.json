@@ -59,16 +59,6 @@
       "RenovacaoFrota": "S",
       "NovaLocacao": "N",
       "GerarAtivoInclusaoPedido": "N"
-    },
-    {
-      "Descricao": "Desabilitar",
-      "StatusMotivoPedido": "D",
-      "CodigoRestricao": "3",
-      "Estoque": "S",
-      "RenovacaoFrota": "N",
-      "id": "DWLlO2j",
-      "NovaLocacao": "N",
-      "GerarAtivoInclusaoPedido": "N"
     }
   ]
 }

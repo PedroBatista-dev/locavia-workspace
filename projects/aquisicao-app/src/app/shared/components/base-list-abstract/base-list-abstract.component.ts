@@ -65,10 +65,10 @@ export abstract class BaseListAbstract<T extends BaseResourceModel> implements O
     this.subscription.unsubscribe();
   }
 
-  protected executaAcoesMenu(action: any, element: any) {
+  protected executaAcoesMenu(action: any, element: any, rota?:string) {
     switch (action) {
       case "Editar":
-        this.router.navigateByUrl(`${this.router.routerState.snapshot.url.split('/')[1]}/${this.router.routerState.snapshot.url.split('/')[2]}/${element[this.key]}/editar`);
+        this.router.navigateByUrl(`${rota}/${element[this.key]}/editar`);
         break;
       case "Consultar":
         this.router.navigateByUrl(`${this.router.routerState.snapshot.url.split('/')[1]}/${this.router.routerState.snapshot.url.split('/')[2]}/${element[this.key]}/consultar`);

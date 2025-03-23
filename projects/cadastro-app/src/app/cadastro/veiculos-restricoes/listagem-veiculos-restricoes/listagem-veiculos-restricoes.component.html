@@ -33,11 +33,11 @@
               <th mat-header-cell *matHeaderCellDef>Ações</th>
               <td mat-cell *matCellDef="let element" (dblclick)="consultarItem(element)">
                 <a mat-icon-button color="accent"
-                    aria-label="Icone de editar" (click)="executaAcoesMenu('Editar', element)">
+                    aria-label="Icone de editar" (click)="executaAcoesMenu('Editar', element, 'cadastro/veiculos-restricoes')">
                     <mat-icon inline=true matTooltip="Editar">edit</mat-icon>
                 </a>
                 <button type="button" mat-icon-button color="accent"
-                    aria-label="Icone de consultar" (click)="executaAcoesMenu('Consultar', element)">
+                    aria-label="Icone de consultar" (click)="executaAcoesMenu('Consultar', element, 'cadastro/veiculos-restricoes')">
                     <mat-icon inline=true matTooltip="Consultar">visibility</mat-icon>
                 </button>
                 <button mat-icon-button color="warn"
